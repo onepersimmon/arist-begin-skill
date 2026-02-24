@@ -1,6 +1,6 @@
 ---
 name: arist-begin
-description: Use when user input contains `arist-begin` or asks to enforce Arist global development rules for shell execution, coding style, TDD workflow, bugfix process, change safety, and done-state commit/push behavior.
+description: Use when user input contains `arist-begin` or `arist-begin -q` and needs Arist global development rules; enable Qiuchuang company-specific dynamic-query and Docker packaging constraints only in `-q` mode.
 ---
 
 # arist-begin
@@ -8,6 +8,11 @@ description: Use when user input contains `arist-begin` or asks to enforce Arist
 ## 触发与生效范围
 - 当用户输入包含 `arist-begin` 时，立即启用本技能。
 - 启用后，本技能规则对当前任务全程生效，直到用户明确要求停止。
+
+## 模式开关
+- `arist-begin`：仅启用本文件中的全局开发规则。
+- `arist-begin -q`：在全局开发规则基础上，额外启用“秋创公司级特殊规则”。
+- 未出现 `-q` 时，不启用任何秋创公司级特殊规则。
 
 ## 全局开发规则
 1. 问候规则
@@ -51,6 +56,19 @@ description: Use when user input contains `arist-begin` or asks to enforce Arist
 - 当用户输入「已完成」时，优先提示并切换使用 `$arist-end` 执行标准收尾流程。
 - 若当前目录不是 git 仓库，先明确告知无法执行提交/推送，再按用户要求继续非 git 收尾动作。
 - 若用户明确要求“不要提交或推送”，联动时仅执行清理与验证步骤，不执行 `git commit` 和 `git push`。
+
+## 秋创公司级特殊规则（仅 `-q` 模式启用）
+1. 动态查询规则（DynamicQueryInput / Gridify）
+- 在 ABP 应用服务查询场景中，优先使用 `DynamicQueryInput` + `IGridifyQuery` 模式。
+- 默认分页上限按公司规范控制（常规默认 `MaxResultCount=1000`），并根据业务设置查询复杂度限制。
+- 涉及筛选表达式时，遵循 Gridify 语法（`=`, `!=`, `>`, `<`, `,`, `|`, 括号）并处理特殊字符转义。
+- 设计查询时同时考虑：排序字段白名单、Mapper 映射、性能（索引/结果量限制/必要缓存）。
+
+2. Docker 打包规则（linux/amd64）
+- 构建镜像必须显式指定 `--platform linux/amd64`。
+- 在 Apple Silicon 环境优先使用 `docker buildx build --platform linux/amd64 ...`。
+- `docker-compose.yml` 中必须声明目标平台为 `linux/amd64`。
+- 构建完成后执行镜像架构校验（如 `docker inspect` 或 `docker manifest inspect`）。
 
 ## 输出与汇报要求
 - 完成关键步骤后，简要汇报已执行动作、结果与下一步。
