@@ -47,6 +47,11 @@ description: Use when user input contains `arist-begin` or asks to enforce Arist
 2. 执行构建检查与必要测试。
 3. 提交并推送代码。
 
+## 联动规则（与 arist-end）
+- 当用户输入「已完成」时，优先提示并切换使用 `$arist-end` 执行标准收尾流程。
+- 若当前目录不是 git 仓库，先明确告知无法执行提交/推送，再按用户要求继续非 git 收尾动作。
+- 若用户明确要求“不要提交或推送”，联动时仅执行清理与验证步骤，不执行 `git commit` 和 `git push`。
+
 ## 输出与汇报要求
 - 完成关键步骤后，简要汇报已执行动作、结果与下一步。
 - 任何命令失败时，先给出错误原因，再给出修复动作。
