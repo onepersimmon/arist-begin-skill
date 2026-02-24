@@ -1,6 +1,6 @@
 ---
 name: arist-begin
-description: Use when user input contains `arist-begin` or `arist-begin -q` and needs Arist global development rules; enable Qiuchuang company-specific dynamic-query and Docker packaging constraints only in `-q` mode.
+description: Use when user input contains `arist-begin` for global rules; enable Qiuchuang company-specific dynamic-query and Docker packaging constraints only when input ends with `-q` (spaces before `-q` allowed).
 ---
 
 # arist-begin
@@ -13,6 +13,22 @@ description: Use when user input contains `arist-begin` or `arist-begin -q` and 
 - `arist-begin`：仅启用本文件中的全局开发规则。
 - `arist-begin -q`：在全局开发规则基础上，额外启用“秋创公司级特殊规则”。
 - 未出现 `-q` 时，不启用任何秋创公司级特殊规则。
+
+## `-q` 触发判定（严格）
+- 只有当用户输入以 `-q` 结尾时，才启用秋创公司级特殊规则。
+- `arist-begin` 与 `-q` 之间允许一个或多个空格，例如：`arist-begin -q`、`arist-begin    -q`。
+- 若 `-q` 不在结尾（例如 `arist-begin -q test`），则视为未触发公司级特殊规则。
+- 判定建议（概念表达）：`arist-begin\\s+-q\\s*$`。
+
+## 常见问题处理（模式识别）
+1. 未带 `-q` 却误启用公司特规
+- 处理：立即降级回全局规则，并在回复中声明“当前未启用秋创公司级特殊规则”。
+
+2. 多空格导致 `-q` 未识别
+- 处理：按“结尾为 `-q` 且允许多空格”规则识别，不因空格数量变化而失效。
+
+3. `-q` 后还有其他参数
+- 处理：因为不满足“`-q` 结尾”，不启用公司特规，必要时提示用户改为以 `-q` 结尾。
 
 ## 全局开发规则
 1. 问候规则
@@ -79,4 +95,4 @@ description: Use when user input contains `arist-begin` or `arist-begin -q` and 
 - 追加位置：本文件的“纠错追加规则”章节。
 
 ## 纠错追加规则
-- 暂无。
+- 用户纠正：未使用 `-q` 时绝不启用秋创公司特规；`arist-begin -q` 允许多空格，只要以 `-q` 结尾即启用公司特规。
