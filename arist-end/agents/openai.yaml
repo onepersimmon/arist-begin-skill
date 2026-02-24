@@ -1,0 +1,4 @@
+interface:
+  display_name: "Arist End"
+  short_description: "Finish task with cleanup, build, commit, and push"
+  default_prompt: "Use $arist-end to run the task completion workflow now."
