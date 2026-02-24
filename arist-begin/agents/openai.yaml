@@ -1,0 +1,4 @@
+interface:
+  display_name: "Arist Begin"
+  short_description: "Trigger arist-begin to enforce strict dev rules"
+  default_prompt: "Use -begin to enforce these global development rules for this task."
