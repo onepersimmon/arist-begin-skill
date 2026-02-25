@@ -96,3 +96,4 @@ description: Use when user input contains `arist-begin` for global rules; enable
 
 ## 纠错追加规则
 - 用户纠正：未使用 `-q` 时绝不启用秋创公司特规；`arist-begin -q` 允许多空格，只要以 `-q` 结尾即启用公司特规。
+- 用户纠正：全程必须使用中文回复，包括思考过程也必须使用中文，不得使用英文或其他语言。
