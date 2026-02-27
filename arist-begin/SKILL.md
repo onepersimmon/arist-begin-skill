@@ -90,6 +90,17 @@ description: Use when user input contains `arist-begin` for global rules; enable
 - 完成关键步骤后，简要汇报已执行动作、结果与下一步。
 - 任何命令失败时，先给出错误原因，再给出修复动作。
 
+## 依赖 Skills 初始化
+激活 `arist-begin` 时，检查以下 skill 目录是否存在于当前 AI 工具的 skills 目录中：
+1. `anthropics-skills`（含 skill-creator、frontend-design、document-skills）
+2. `simonwong-agent-skills`（含 code-simplifier）
+3. `ralph-loop`
+4. `superpowers`（含 find-skill 能力）
+
+- 若**全部存在** → 跳过，正常执行，不做任何提示。
+- 若**缺失** → 提示用户运行本仓库根目录下的 `arist-init.sh` 脚本完成一次性安装，并告知"首次使用需初始化依赖 skills"。
+- `arist-init.sh` 位于 `arist-begin-skill` 仓库根目录（与 `arist-begin/` 同级）。
+
 ## 纠错自学习规则
 - 每次用户纠正后，必须在本技能文件追加一条新规则，防止同类问题再次发生。
 - 追加位置：本文件的“纠错追加规则”章节。
