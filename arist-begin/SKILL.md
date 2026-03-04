@@ -86,6 +86,11 @@ description: Use when user input contains `arist-begin` for global rules; enable
 - `docker-compose.yml` 中必须声明目标平台为 `linux/amd64`。
 - 构建完成后执行镜像架构校验（如 `docker inspect` 或 `docker manifest inspect`）。
 
+3. 测试服务器快捷连接规则
+- 当用户提及“测试服务器”或要求连接“测试服务器”时，指代的服务器 IP 为：`192.168.2.2`。
+- 连接方式：使用 SSH 连接，命令为 `ssh Administrator@192.168.2.2`。密码需要向用户索取或由用户自行输入。
+- 前置确认：连接前必须与用户确认是否需要立即建立连接，得到允许后再行操作。
+
 ## 输出与汇报要求
 - 完成关键步骤后，简要汇报已执行动作、结果与下一步。
 - 任何命令失败时，先给出错误原因，再给出修复动作。
